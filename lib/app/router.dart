@@ -4,7 +4,7 @@ import '../features/splash/presentation/screens/splash_screen.dart';
 import '../features/auth/presentation/screens/login_screen.dart';
 import '../features/auth/presentation/screens/signup_screen.dart';
 import '../features/home/presentation/screens/home_screen.dart';
-
+import '../features/navigation/presentation/screens/main_screen.dart';
 
 class AppRouter {
   AppRouter._();
@@ -28,7 +28,7 @@ class AppRouter {
       ),
       GoRoute(
   path: '/home',
-  builder: (context, state) => const HomeScreen(),
+  builder: (context, state) => const MainScreen(),
 ),
     ],
   );

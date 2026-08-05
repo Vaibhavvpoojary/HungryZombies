@@ -28,12 +28,11 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void login() {
-    if (_formKey.currentState!.validate()) {
-      // TODO:
-      // Call Login API
-    }
+void login() {
+  if (_formKey.currentState!.validate()) {
+    context.go('/home');
   }
+}
 
   @override
   Widget build(BuildContext context) {
