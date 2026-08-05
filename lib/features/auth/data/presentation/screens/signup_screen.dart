@@ -201,12 +201,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                     TextButton(
   onPressed: () {
-    Navigator.pop(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const LoginScreen(),
-      ),
-    );
+    context.go('/login');
   },
   child: const Text("Login"),
 ),

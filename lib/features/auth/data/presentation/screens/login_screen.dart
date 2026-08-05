@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'signup_screen.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../../../../core/widgets/primary_button.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -190,12 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextButton(
 
                       onPressed: () {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (_) => const SignupScreen(),
-    ),
-  );
+                        context.push('/signup');
 },
                       child: const Text("Create Account"),
 
