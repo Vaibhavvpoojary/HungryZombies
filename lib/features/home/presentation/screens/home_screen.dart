@@ -4,6 +4,8 @@ import '../widgets/home_header.dart';
 import '../widgets/search_bar_widget.dart';
 import '../widgets/category_card.dart';
 import '../widgets/section_title.dart';
+import '../../../../core/data/dummy_data.dart';
+import '../widgets/food_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -24,6 +26,22 @@ class HomeScreen extends StatelessWidget {
               SectionTitle(title: "Categories"),
 
              CategoryCard(),
+             
+             const SectionTitle(
+  title: "Popular Foods",
+),
+
+ListView.builder(
+  shrinkWrap: true,
+  physics: const NeverScrollableScrollPhysics(),
+  itemCount: DummyData.popularFoods.length,
+  itemBuilder: (context, index) {
+    return FoodCard(
+      food: DummyData.popularFoods[index],
+    );
+  },
+),
+             
             ],
           ),
         ),
