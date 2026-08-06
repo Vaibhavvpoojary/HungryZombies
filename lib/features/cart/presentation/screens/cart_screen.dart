@@ -186,173 +186,121 @@ class _CartScreenState extends State<CartScreen> {
 
 
           Padding(
-
-  padding: const EdgeInsets.symmetric(
-    horizontal: 16,
-  ),
-
-
+  padding: const EdgeInsets.symmetric(horizontal: 16),
   child: Row(
-
     children: [
 
-
+      // Dine In
       Expanded(
-
         child: GestureDetector(
-
           onTap: () {
-
             setState(() {
-
               orderType = "Dine In";
-
             });
-
           },
-
-
           child: Container(
-
             height: 50,
-
-
             decoration: BoxDecoration(
-
               color: orderType == "Dine In"
                   ? Colors.red
                   : Colors.white,
-
-
-              borderRadius:
-              BorderRadius.circular(15),
-
-
+              borderRadius: BorderRadius.circular(15),
               border: Border.all(
-
                 color: Colors.red,
-
                 width: 1.5,
-
               ),
-
             ),
-
-
             child: Center(
-
               child: Text(
-
                 "Dine In",
-
-
                 style: TextStyle(
-
                   color: orderType == "Dine In"
                       ? Colors.white
                       : Colors.red,
-
-
-                  fontSize: 16,
-
-                  fontWeight:
-                  FontWeight.bold,
-
+                  fontWeight: FontWeight.bold,
                 ),
-
               ),
-
             ),
-
           ),
-
         ),
-
       ),
 
+      const SizedBox(width: 10),
 
-
-      const SizedBox(width: 15),
-
-
-
+      // Parcel
       Expanded(
-
         child: GestureDetector(
-
           onTap: () {
-
             setState(() {
-
               orderType = "Parcel";
-
             });
-
           },
-
-
           child: Container(
-
             height: 50,
-
-
             decoration: BoxDecoration(
-
               color: orderType == "Parcel"
                   ? Colors.red
                   : Colors.white,
-
-
-              borderRadius:
-              BorderRadius.circular(15),
-
-
+              borderRadius: BorderRadius.circular(15),
               border: Border.all(
-
                 color: Colors.red,
-
                 width: 1.5,
-
               ),
-
             ),
-
-
             child: Center(
-
               child: Text(
-
                 "Parcel",
-
-
                 style: TextStyle(
-
                   color: orderType == "Parcel"
                       ? Colors.white
                       : Colors.red,
-
-
-                  fontSize: 16,
-
-                  fontWeight:
-                  FontWeight.bold,
-
+                  fontWeight: FontWeight.bold,
                 ),
-
               ),
-
             ),
-
           ),
-
         ),
+      ),
 
+      const SizedBox(width: 10),
+
+      // Deliver Home
+      Expanded(
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              orderType = "Deliver Home";
+            });
+          },
+          child: Container(
+            height: 50,
+            decoration: BoxDecoration(
+              color: orderType == "Deliver Home"
+                  ? Colors.red
+                  : Colors.white,
+              borderRadius: BorderRadius.circular(15),
+              border: Border.all(
+                color: Colors.red,
+                width: 1.5,
+              ),
+            ),
+            child: Center(
+              child: Text(
+                "Home",
+                style: TextStyle(
+                  color: orderType == "Deliver Home"
+                      ? Colors.white
+                      : Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
 
     ],
-
   ),
-
 ),
 
 
