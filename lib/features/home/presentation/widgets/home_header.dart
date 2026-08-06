@@ -1,72 +1,48 @@
 import 'package:flutter/material.dart';
-
 import '../../../cart/presentation/widgets/home_cart_button.dart';
 
-
 class HomeHeader extends StatelessWidget {
-
-  const HomeHeader({
-    super.key,
-  });
-
+  const HomeHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
-
       padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 15,
+        horizontal: 20,
+        vertical: 10,
       ),
-
       child: Row(
-
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
         children: [
-
-
           Column(
-
             crossAxisAlignment: CrossAxisAlignment.start,
-
-            children: [
-
-              const Text(
+            children: const [
+              Text(
                 "Hungry Zombies",
                 style: TextStyle(
-                  fontSize: 26,
+                  fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
               ),
 
-
-              const SizedBox(height: 5),
-
+              SizedBox(height: 4),
 
               Text(
-                "What are you craving today?",
+                "Good Morning ",
                 style: TextStyle(
-                  color: Colors.grey.shade600,
+                  fontSize: 16,
+                  color: Colors.grey,
                 ),
               ),
-
             ],
-
           ),
 
-
-
-          // Cart Icon
-          const HomeCartButton(),
-
+          CircleAvatar(
+            radius: 25,
+            child: Icon(Icons.person),
+          ),
         ],
-
       ),
-
     );
-
   }
-
 }
