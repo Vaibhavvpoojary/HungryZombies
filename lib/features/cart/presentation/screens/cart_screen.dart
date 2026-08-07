@@ -81,8 +81,12 @@ class _CartScreenState extends State<CartScreen> {
                     itemBuilder: (context,index){
 
 
-                      final food =
+                      final cartItem =
                       cart.items[index];
+
+                      final food = cartItem.food;
+                      final quantity = cartItem.quantity;
+                      final subtotal = cartItem.totalPrice;
 
 
 
@@ -92,45 +96,125 @@ class _CartScreenState extends State<CartScreen> {
                         const EdgeInsets.all(12),
 
 
-                        child: ListTile(
+                        child: Padding(
 
+                          padding: const EdgeInsets.all(12),
 
-                          leading:
-                          const Icon(
-                            Icons.fastfood,
+                          child: Row(
+
+                            children: [
+
+                              // Food Icon
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.red.withOpacity(0.1),
+                                child: const Icon(
+                                  Icons.fastfood,
+                                  color: Colors.red,
+                                ),
+                              ),
+
+                              const SizedBox(width: 12),
+
+                              // Food Details
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+
+                                    // Food Name
+                                    Text(
+                                      food.name,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+
+                                    const SizedBox(height: 4),
+
+                                    // Price
+                                    Text(
+                                      "₹${food.price.toStringAsFixed(0)}",
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+
+                                    const SizedBox(height: 8),
+
+                                    // Quantity Controls
+                                    Row(
+                                      children: [
+
+                                        // Decrease Button
+                                        IconButton(
+                                          onPressed: () {
+                                            cart.decreaseQuantity(food);
+                                          },
+                                          icon: const Icon(
+                                            Icons.remove_circle_outline,
+                                            color: Colors.red,
+                                          ),
+                                          iconSize: 28,
+                                        ),
+
+                                        // Quantity
+                                        Text(
+                                          quantity.toString(),
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+
+                                        // Increase Button
+                                        IconButton(
+                                          onPressed: () {
+                                            cart.increaseQuantity(food);
+                                          },
+                                          icon: const Icon(
+                                            Icons.add_circle,
+                                            color: Colors.red,
+                                          ),
+                                          iconSize: 28,
+                                        ),
+
+                                        const Spacer(),
+
+                                        // Subtotal
+                                        Text(
+                                          "₹${subtotal.toStringAsFixed(0)}",
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+
+                                        const SizedBox(width: 8),
+
+                                        // Delete Button
+                                        IconButton(
+                                          onPressed: () {
+                                            cart.removeFromCart(food);
+                                          },
+                                          icon: const Icon(
+                                            Icons.delete,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+
+                                      ],
+                                    ),
+
+                                  ],
+                                ),
+                              ),
+
+                            ],
                           ),
-
-
-                          title:
-                          Text(
-                            food.name,
-                          ),
-
-
-                          subtitle:
-                          Text(
-                            "₹${food.price}",
-                          ),
-
-
-                          trailing:
-                          IconButton(
-
-                            icon:
-                            const Icon(
-                              Icons.delete,
-                              color: Colors.red,
-                            ),
-
-
-                            onPressed: (){
-
-                              cart.removeFromCart(food);
-
-                            },
-
-                          ),
-
 
                         ),
 
@@ -309,6 +393,35 @@ class _CartScreenState extends State<CartScreen> {
 
 
 
+          // Total Price Display
+          if (cart.items.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Total:",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  "₹${cart.totalPrice.toStringAsFixed(0)}",
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 10),
+
+
 
           // Place Order Button
 
@@ -335,7 +448,9 @@ class _CartScreenState extends State<CartScreen> {
                       MaterialPageRoute(
 
                         builder: (_) =>
-                        const OrderSuccessScreen(),
+                        OrderSuccessScreen(
+                          orderType: orderType,
+                        ),
 
                       ),
 

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/constants/app_colors.dart';
-import '../../data/models/food_model.dart';
+import '../../../../features/cart/providers/cart_provider.dart';
+import '../../../../features/cart/data/models/cart_item_model.dart';
+import '../../../../features/home/data/models/food_model.dart';
 
-class FoodCard extends StatefulWidget {
+class FoodCard extends StatelessWidget {
   final FoodModel food;
 
   const FoodCard({
@@ -12,15 +15,16 @@ class FoodCard extends StatefulWidget {
   });
 
   @override
-  State<FoodCard> createState() => _FoodCardState();
-}
-
-class _FoodCardState extends State<FoodCard> {
-  int quantity = 0;
-
-  @override
   Widget build(BuildContext context) {
-    final food = widget.food;
+    final cart = Provider.of<CartProvider>(context);
+    
+    // Find the cart item for this food
+    final cartItem = cart.items.firstWhere(
+      (item) => item.food.id == food.id,
+      orElse: () => CartItemModel(food: food, quantity: 0),
+    );
+    
+    final quantity = cartItem.quantity;
 
     return Card(
       elevation: 4,
@@ -124,13 +128,11 @@ class _FoodCardState extends State<FoodCard> {
                       const Spacer(),
 
                       IconButton(
-                        onPressed: () {
-                          if (quantity > 0) {
-                            setState(() {
-                              quantity--;
-                            });
-                          }
-                        },
+                        onPressed: quantity > 0
+                            ? () {
+                                cart.decreaseQuantity(food);
+                              }
+                            : null,
                         icon: const Icon(Icons.remove_circle_outline),
                       ),
 
@@ -143,9 +145,7 @@ class _FoodCardState extends State<FoodCard> {
 
                       IconButton(
                         onPressed: () {
-                          setState(() {
-                            quantity++;
-                          });
+                          cart.addToCart(food);
                         },
                         icon: const Icon(Icons.add_circle),
                         color: AppColors.primary,

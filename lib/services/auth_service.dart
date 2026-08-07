@@ -62,9 +62,26 @@ class AuthService {
       }),
     );
 
-    final data = jsonDecode(response.body);
+    final dynamic decodedBody = response.body.isNotEmpty
+        ? jsonDecode(response.body)
+        : <String, dynamic>{};
 
-    return data;
+    final Map<String, dynamic> data = decodedBody is Map<String, dynamic>
+        ? decodedBody
+        : <String, dynamic>{};
+
+    if (response.statusCode == 201) {
+      return {
+        'success': true,
+        'message': data['message'] ?? 'Account created successfully',
+        'user': data['user'],
+      };
+    }
+
+    return {
+      'success': false,
+      'message': data['message'] ?? 'Registration failed',
+    };
   } catch (e) {
     return {
       'success': false,

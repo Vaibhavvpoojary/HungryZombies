@@ -28,7 +28,7 @@ class HomeHeader extends StatelessWidget {
               SizedBox(height: 4),
 
               Text(
-                "Good Morning ",
+                "Hello ",
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.grey,

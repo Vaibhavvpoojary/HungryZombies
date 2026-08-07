@@ -126,7 +126,7 @@ class CategoryDetailsScreen extends StatelessWidget {
               foregroundColor: Colors.white,
             ),
             child: const Text(
-              "Continue to Cart (0)",
+              "Continue to Cart",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../../../core/data/order_dummy_data.dart';
+import '../../../../features/orders/providers/order_provider.dart';
 
 
 class OrdersScreen extends StatelessWidget {
@@ -16,7 +17,8 @@ class OrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
 
-    final orders = OrderDummyData.orders;
+    final orderProvider = Provider.of<OrderProvider>(context);
+    final orders = orderProvider.orders;
 
 
 
@@ -98,13 +100,15 @@ class OrdersScreen extends StatelessWidget {
                       children:[
 
 
+
                         Row(
 
                           mainAxisAlignment:
                           MainAxisAlignment.spaceBetween,
 
 
-                          children:[
+                          children: [
+
 
 
                             Text(
@@ -145,6 +149,7 @@ class OrdersScreen extends StatelessWidget {
                             ),
 
 
+
                           ],
 
                         ),
@@ -181,7 +186,7 @@ class OrdersScreen extends StatelessWidget {
 
                         Text(
 
-                          "Total: ₹${order.totalAmount}",
+                          "Total: ₹${order.totalAmount.toStringAsFixed(0)}",
 
                           style:
                           const TextStyle(
@@ -212,7 +217,6 @@ class OrdersScreen extends StatelessWidget {
                           ),
 
                         ),
-
 
                       ],
 
