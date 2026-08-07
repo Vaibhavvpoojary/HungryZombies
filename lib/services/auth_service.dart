@@ -41,4 +41,35 @@ class AuthService {
       };
     }
   }
+
+  static Future<Map<String, dynamic>> register({
+  required String name,
+  required String email,
+  required String phone,
+  required String password,
+}) async {
+  try {
+    final response = await http.post(
+      Uri.parse('$baseUrl/register'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'name': name,
+        'email': email,
+        'phone': phone,
+        'password': password,
+      }),
+    );
+
+    final data = jsonDecode(response.body);
+
+    return data;
+  } catch (e) {
+    return {
+      'success': false,
+      'message': 'Unable to connect to server',
+    };
+  }
+}
 }

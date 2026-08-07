@@ -3,6 +3,7 @@ import 'login_screen.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../../../../core/widgets/primary_button.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../services/auth_service.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -34,11 +35,36 @@ class _SignupScreenState extends State<SignupScreen> {
     super.dispose();
   }
 
-  void signup() {
-    if (_formKey.currentState!.validate()) {
-      // TODO: Register API
-    }
+  Future<void> signup() async {
+  if (!_formKey.currentState!.validate()) {
+    return;
   }
+
+  final result = await AuthService.register(
+    name: nameController.text.trim(),
+    email: emailController.text.trim(),
+    phone: phoneController.text.trim(),
+    password: passwordController.text.trim(),
+  );
+
+  if (!mounted) return;
+
+  if (result['success'] == true) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Account created successfully"),
+      ),
+    );
+
+    context.go('/login');
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(result['message'] ?? 'Registration failed'),
+      ),
+    );
+  }
+}
 
   @override
   Widget build(BuildContext context) {
