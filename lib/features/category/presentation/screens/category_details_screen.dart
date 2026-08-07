@@ -4,6 +4,7 @@ import '../../../../core/data/dummy_data.dart';
 import '../../../home/data/models/category_model.dart';
 import '../../../home/data/models/food_model.dart';
 import '../../../home/presentation/widgets/food_card.dart';
+import '../../../cart/presentation/screens/cart_screen.dart';
 
 class CategoryDetailsScreen extends StatelessWidget {
   final CategoryModel category;
@@ -118,7 +119,12 @@ class CategoryDetailsScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: ElevatedButton(
             onPressed: () {
-              // TODO: Navigate to Cart Screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const CartScreen(),
+                ),
+              );
             },
             style: ElevatedButton.styleFrom(
               minimumSize: const Size(double.infinity, 55),

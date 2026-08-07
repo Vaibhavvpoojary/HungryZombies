@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../features/auth/providers/user_provider.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    final user = userProvider.user;
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(
@@ -31,9 +37,9 @@ class ProfileHeader extends StatelessWidget {
 
           const SizedBox(height: 16),
 
-          const Text(
-            "Vaibhav Poojary",
-            style: TextStyle(
+          Text(
+            user?.fullName ?? "Guest User",
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -42,18 +48,18 @@ class ProfileHeader extends StatelessWidget {
 
           const SizedBox(height: 6),
 
-          const Text(
-            "vaibhav@gmail.com",
-            style: TextStyle(
+          Text(
+            user?.email ?? "",
+            style: const TextStyle(
               color: Colors.white70,
             ),
           ),
 
           const SizedBox(height: 4),
 
-          const Text(
-            "+91 9876543210",
-            style: TextStyle(
+          Text(
+            user?.phone ?? "",
+            style: const TextStyle(
               color: Colors.white70,
             ),
           ),

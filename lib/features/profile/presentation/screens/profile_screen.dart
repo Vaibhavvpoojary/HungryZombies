@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
+import '../../../auth/providers/user_provider.dart';
 import '../widgets/profile_header.dart';
 import '../widgets/profile_option_tile.dart';
 
@@ -117,7 +120,8 @@ class ProfileScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    // Logout later
+                    context.read<UserProvider>().clearUser();
+                    context.go('/login');
                   },
                   icon: const Icon(Icons.logout),
                   label: const Text("Logout"),

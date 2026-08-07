@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'login_screen.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../../../../core/widgets/primary_button.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../services/auth_service.dart';
+import '../../../../features/auth/providers/user_provider.dart';
+import '../../../../features/auth/models/user_model.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -50,6 +53,17 @@ class _SignupScreenState extends State<SignupScreen> {
   if (!mounted) return;
 
   if (result['success'] == true) {
+    // Store user data in UserProvider
+    final userData = result['user'] as Map<String, dynamic>;
+    final user = UserModel(
+      id: (userData['_id'] ?? userData['id'] ?? '').toString(),
+      fullName: userData['name'] ?? '',
+      email: userData['email'] ?? '',
+      phone: userData['phone'] ?? '',
+    );
+    
+    Provider.of<UserProvider>(context, listen: false).setUser(user);
+    
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text("Account created successfully"),
