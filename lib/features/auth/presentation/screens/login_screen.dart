@@ -3,6 +3,7 @@ import 'signup_screen.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../../../../core/widgets/primary_button.dart';
 import 'package:go_router/go_router.dart';
+import '../services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -28,9 +29,28 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-void login() {
-  if (_formKey.currentState!.validate()) {
+Future<void> login() async {
+  if (!_formKey.currentState!.validate()) {
+    return;
+  }
+
+  final result = await AuthService.login(
+    emailController.text.trim(),
+    passwordController.text.trim(),
+  );
+
+  if (!mounted) return;
+
+  if (result['success'] == true) {
+    print("Login successful");
+
     context.go('/home');
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(result['message'] ?? 'Login failed'),
+      ),
+    );
   }
 }
 

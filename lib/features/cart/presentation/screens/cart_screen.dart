@@ -286,7 +286,7 @@ class _CartScreenState extends State<CartScreen> {
             ),
             child: Center(
               child: Text(
-                "Home",
+                "Deliver Home",
                 style: TextStyle(
                   color: orderType == "Deliver Home"
                       ? Colors.white
