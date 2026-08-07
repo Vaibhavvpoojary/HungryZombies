@@ -3,7 +3,7 @@ import 'signup_screen.dart';
 import '../../../../core/widgets/custom_text_field.dart';
 import '../../../../core/widgets/primary_button.dart';
 import 'package:go_router/go_router.dart';
-import '../services/auth_service.dart';
+import '../../../../services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -35,8 +35,8 @@ Future<void> login() async {
   }
 
   final result = await AuthService.login(
-    emailController.text.trim(),
-    passwordController.text.trim(),
+    email: emailController.text.trim(),
+    password: passwordController.text.trim(),
   );
 
   if (!mounted) return;
