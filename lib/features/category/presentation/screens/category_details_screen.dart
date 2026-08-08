@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/data/dummy_data.dart';
 import '../../../home/data/models/category_model.dart';
 import '../../../home/data/models/food_model.dart';
 import '../../../home/presentation/widgets/food_card.dart';
@@ -16,10 +15,8 @@ class CategoryDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Filter foods based on selected category
-    final List<FoodModel> categoryFoods = DummyData.foods
-        .where((food) => food.categoryId == category.id)
-        .toList();
+    // Use foods from the category object (loaded from API)
+    final List<FoodModel> categoryFoods = category.foods;
 
     return Scaffold(
       backgroundColor: Colors.grey.shade100,

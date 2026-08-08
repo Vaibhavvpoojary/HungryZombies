@@ -1,45 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/data/dummy_data.dart';
+
+import '../../data/models/category_model.dart';
 
 class CategoryCard extends StatelessWidget {
-  const CategoryCard({super.key});
+  final List<CategoryModel> categories;
+
+  const CategoryCard({
+    super.key,
+    required this.categories,
+  });
 
   @override
   Widget build(BuildContext context) {
+    if (categories.isEmpty) {
+      return const SizedBox(
+        height: 120,
+        child: Center(
+          child: Text(
+            'No categories available',
+          ),
+        ),
+      );
+    }
+
     return SizedBox(
       height: 120,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: DummyData.categories.length,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+        ),
+        itemCount: categories.length,
         itemBuilder: (context, index) {
-          final category = DummyData.categories[index];
+          final category = categories[index];
 
-          return GestureDetector(
+            return GestureDetector(
             onTap: () {
-              context.push('/category-details/${category.id}');
+              context.push(
+                '/category-details/${category.id}',
+                extra: category,
+              );
             },
             child: Container(
               width: 90,
-              margin: const EdgeInsets.only(right: 12),
+              margin: const EdgeInsets.only(
+                right: 12,
+              ),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(18),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black12,
                     blurRadius: 6,
-                    offset: const Offset(0, 2),
+                    offset: Offset(0, 2),
                   ),
                 ],
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment:
+                    MainAxisAlignment.center,
                 children: [
                   CircleAvatar(
                     radius: 28,
-                    backgroundColor: Colors.red.shade50,
+                    backgroundColor:
+                        Colors.red.shade50,
                     child: const Icon(
                       Icons.fastfood,
                       color: Colors.red,
@@ -52,6 +78,8 @@ class CategoryCard extends StatelessWidget {
                   Text(
                     category.name,
                     textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                     ),

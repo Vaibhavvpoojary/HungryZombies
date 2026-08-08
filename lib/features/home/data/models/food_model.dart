@@ -20,4 +20,32 @@ class FoodModel {
     required this.isPopular,
     required this.rating,
   });
+
+  factory FoodModel.fromJson(
+    Map<String, dynamic> json, {
+    String? categoryId,
+  }) {
+    return FoodModel(
+      id: json['id'].toString(),
+      categoryId:
+          categoryId ?? json['category_id']?.toString() ?? '',
+      name: json['name'] ?? '',
+      description: json['description'] ?? '',
+      image: json['image'] ?? '',
+      price: double.tryParse(
+            json['price'].toString(),
+          ) ??
+          0.0,
+      isVeg: json['is_veg'] ?? false,
+
+      // Backend doesn't currently have is_popular.
+      // We keep the field for your existing UI.
+      isPopular: json['is_popular'] ?? false,
+
+      rating: double.tryParse(
+            json['rating'].toString(),
+          ) ??
+          0.0,
+    );
+  }
 }

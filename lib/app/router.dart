@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../features/category/presentation/screens/category_details_screen.dart';
@@ -6,7 +7,6 @@ import '../features/auth/presentation/screens/login_screen.dart';
 import '../features/auth/presentation/screens/signup_screen.dart';
 import '../features/navigation/presentation/screens/main_screen.dart';
 import '../features/home/data/models/category_model.dart';
-import '../core/data/dummy_data.dart';
 
 class AppRouter {
 
@@ -54,14 +54,21 @@ class AppRouter {
       GoRoute(
         path: '/category-details/:categoryId',
         builder: (context, state) {
-          final categoryId = state.pathParameters['categoryId'];
-          final category = categoryId == null
-              ? state.extra as CategoryModel
-              : DummyData.categories.firstWhere(
-                  (item) => item.id == categoryId,
-                );
+          final category = state.extra as CategoryModel?;
+
+          if (category == null) {
+            // Fallback: if no extra passed, we need to handle this
+            // For now, return an empty category or show error
+            return Scaffold(
+              appBar: AppBar(title: const Text('Error')),
+              body: const Center(
+                child: Text('Category not found'),
+              ),
+            );
+          }
 
           return CategoryDetailsScreen(
+ 
             category: category,
           );
 
