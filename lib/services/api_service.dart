@@ -22,4 +22,28 @@ class ApiService {
       'Status code: ${response.statusCode}',
     );
   }
+
+
+  // =====================================================
+  // GET RESTAURANT OFFERS / DEALS
+  // =====================================================
+
+  static Future<Map<String, dynamic>> getRestaurantOfferDeals(
+    int restaurantId,
+  ) async {
+    final uri = Uri.parse(
+      '$baseUrl/offer-deals/restaurant/$restaurantId',
+    );
+
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body) as Map<String, dynamic>;
+    }
+
+    throw Exception(
+      'Failed to load restaurant offers/deals. '
+      'Status code: ${response.statusCode}',
+    );
+  }
 }
